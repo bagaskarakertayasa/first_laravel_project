@@ -7,20 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     // inisiasi tabel pruduk
-    protected $table = 'products';
+    protected $table = 'tb_products';
 
     // inisiasi primary key di dalam tabel produk
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'id_produk';
 
     // inisiasi kolom yang dapat diisi secara massal
     protected $fillable = [
-        'name',
-        'price',
-        'stock',
+        'nama_produk',
+        'deskripsi_produk',
+        'harga',
+        'kategori_id',
     ];
 
     // inisiasi data yang tidak boleh kita isi
     protected $guarded = [
-        'id',
+        'id_produk',
     ];
 }
