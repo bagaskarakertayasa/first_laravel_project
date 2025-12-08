@@ -32,6 +32,27 @@ class Produk extends Controller
 
     public function add()
     {
-        return view('pages.add_product');
+        return view('pages.produk.add');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'nama_produk' => 'required|string|max:150',
+            'deskripsi' => 'required|string',
+            'harga_produk' => 'required|integer',
+            'kategori' => 'required|integer',
+        ]);
+
+        Product::create([
+            'nama_produk' => $request->nama_produk,
+            'deskripsi_produk' => $request->deskripsi,
+            'harga' => $request->harga_produk,
+            'kategori_id' => $request->kategori,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return redirect('/product')->with('pesan', 'Produk berhasil ditambahkan!');
     }
 }

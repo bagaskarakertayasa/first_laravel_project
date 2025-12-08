@@ -8,6 +8,11 @@
     <b>Alamat : </b> {{ $data_toko['alamat_toko'] }} <br>
     <b>Kontak : </b> {{ $data_toko['kontak_toko'] }}
 </div>
+@if (session('pesan'))
+    <div class="alert alert-success">
+        {{ session('pesan') }}
+    </div>
+@endif
 <div class="card">    
     <div class="card-header">
         Daftar Produk
@@ -29,7 +34,7 @@
                     <th scope="row">{{ $index + 1 }}</th>
                     <td>{{ $product->nama_produk }}</td>
                     <td>{{ $product->deskripsi_produk }}</td>                    
-                    <td>{{ number_format($product->harga, 0, ',', '.') }}</td>                    
+                    <td>Rp{{ number_format($product->harga, 0, ',', '.') }}</td>                    
                     <td>
                         <button type="button" class="btn btn-success">Edit</button>
                         <button type="button" class="btn btn-danger">Hapus</button>

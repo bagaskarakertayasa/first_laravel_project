@@ -22,3 +22,4 @@ Route::view('/contact', 'pages.contact');
 Route::get('/product', [Produk::class, 'index']);
 
 Route::get('/product/add', [Produk::class, 'add']);
+Route::post('/product', [Produk::class, 'store']);
