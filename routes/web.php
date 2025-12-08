@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Produk;
 
 Route::get('/', function () {
     return view('pages.beranda');
@@ -17,4 +18,5 @@ Route::get('/about', function () {
 });
 
 Route::view('/contact', 'pages.contact');
-Route::view('/product', 'pages.product');
+Route::get('/product', [Produk::class, 'index']);
+Route::get('/product/add', [Produk::class, 'add']);

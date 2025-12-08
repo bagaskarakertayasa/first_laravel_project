@@ -2,7 +2,12 @@
 
 @section('content')
 <h1>Daftar produk kami</h1>
-<button type="button" class="btn btn-primary mt-3 mb-3">Tambah Data</button>
+<a href="/product/add" type="button" class="btn btn-primary mt-3 mb-3">Tambah Data</a>
+<div class="alert alert-primary">
+    <b>Nama : </b> {{ $nama_toko }} <br>
+    <b>Alamat : </b> {{ $alamat_toko }} <br>
+    <b>Kontak : </b> {{ $kontak_toko }}
+</div>
 <div class="card">    
     <div class="card-header">
         Daftar Produk
