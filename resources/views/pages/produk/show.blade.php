@@ -13,6 +13,11 @@
         {{ session('pesan') }}
     </div>
 @endif
+@if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
 <div class="card">    
     <div class="card-header">
         Daftar Produk
@@ -38,6 +43,7 @@
                     <td>
                         <button type="button" class="btn btn-success">Edit</button>
                         <button type="button" class="btn btn-danger">Hapus</button>
+                        <a href="/product/{{ $product->id_produk }}" class="btn btn-info">Detail</a>
                     </td>
                 </tr>
                 @endforeach                

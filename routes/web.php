@@ -23,3 +23,4 @@ Route::get('/product', [Produk::class, 'index']);
 
 Route::get('/product/add', [Produk::class, 'add']);
 Route::post('/product', [Produk::class, 'store']);
+Route::get('/product/{id}', [Produk::class, 'detail']);

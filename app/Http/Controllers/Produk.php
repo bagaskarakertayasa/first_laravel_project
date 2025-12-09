@@ -64,4 +64,17 @@ class Produk extends Controller
 
         return redirect('/product')->with('pesan', 'Produk berhasil ditambahkan!');
     }
+
+    public function detail($id)
+    {
+        $data_produk = Product::find($id);
+
+        if (!$data_produk) {
+            return redirect('/product')->with('error', 'Produk tidak ditemukan!');
+        }
+
+        return view('pages.produk.detail', [
+            'data_produk' => $data_produk,
+        ]);
+    }
 }
