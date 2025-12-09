@@ -16,20 +16,31 @@
                     <div class="form-text text-danger">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <label for="inputZip" class="form-label">Harga</label>
                 <input type="number" name="harga_produk" class="form-control" placeholder="Harga Produk" value="{{ $data_produk->harga }}">
                 @error('harga_produk')
                     <div class="form-text text-danger">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="col-md-2">
+            <div class="col-md-6">
+                <label for="inputZip" class="form-label">Stok</label>
+                <input type="number" name="stok" class="form-control" placeholder="Stok Produk" value="{{ $data_produk->stok }}">
+                @error('stok')
+                    <div class="form-text text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="col-md-6">
                 <label for="inputState" class="form-label">Kategori</label>
                 <select name="kategori" class="form-select">
                     <option value="" selected>Pilih...</option>
-                    <option value="1" {{ $data_produk->kategori_id == '1' ? 'selected' : '' }}>Kelas 1</option>
-                    <option value="2" {{ $data_produk->kategori_id == '2' ? 'selected' : '' }}>Kelas 2</option>
-                    <option value="3" {{ $data_produk->kategori_id == '3' ? 'selected' : '' }}>Kelas 3</option>
+                    @foreach($data_kategori as $kategori)
+                    @if($data_produk->kategori_id == $kategori->id_kategori)
+                        <option value="{{ $kategori->id_kategori }}" selected>{{ $kategori->nama_kategori }}</option>
+                    @else
+                        <option value="{{ $kategori->id_kategori }}" {{ $data_produk->kategori_id == $kategori->id_kategori ? 'selected' : '' }}>{{ $kategori->nama_kategori }}</option>
+                    @endif
+                    @endforeach
                 </select>
                 @error('kategori')
                     <div class="form-text text-danger">{{ $message }}</div>

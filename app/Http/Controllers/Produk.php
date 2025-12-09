@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Kategori;
 use Illuminate\Support\Facades\DB;
 
 class Produk extends Controller
@@ -23,6 +24,9 @@ class Produk extends Controller
         } else {
             $produk = Product::where('nama_produk', 'like', "%{$keyword}%")
             ->orWhere('deskripsi_produk', 'like', "%{$keyword}%")
+            ->orWhere('harga', 'like', "%{$keyword}%")
+            ->join('tb_kategori', 'tb_products.kategori_id', '=', 'tb_kategori.id_kategori')
+            ->where('tb_kategori.nama_kategori', 'like', "%{$keyword}%")
             ->get();            
         }
 
@@ -42,7 +46,10 @@ class Produk extends Controller
 
     public function add()
     {
-        return view('pages.produk.add');
+        $data_kategori = Kategori::all();
+        return view('pages.produk.add', [
+            'data_kategori' => $data_kategori,
+        ]);
     }
 
     public function store(Request $request)
@@ -51,9 +58,12 @@ class Produk extends Controller
             'nama_produk' => 'required|string|min:4|max:50',
             'deskripsi' => 'required|string',
             'harga_produk' => 'required|integer',
-            'kategori' => 'required|integer',
+            'kategori' => 'required',
+            'kategori.integer' => 'Kategori produk harus berupa angka!',
+            'stok' => 'required|integer',
         ],[
             'nama_produk.required' => 'Nama produk wajib diisi!',
+            'nama_produk.string' => 'Nama produk harus berupa string!',
             'nama_produk.min' => 'Nama produk minimal 4 karakter!',
             'nama_produk.max' => 'Nama produk maksimal 50 karakter!',
             'deskripsi.required' => 'Deskripsi produk wajib diisi!',
@@ -61,13 +71,17 @@ class Produk extends Controller
             'harga_produk.integer' => 'Harga produk harus berupa angka!',
             'kategori.required' => 'Kategori produk wajib diisi!',
             'kategori.integer' => 'Kategori produk harus berupa angka!',
+            'stok.required' => 'Stok produk wajib diisi!',
+            'stok.integer' => 'Stok produk harus berupa angka!',
         ]);
 
         Product::create([
+            'kode_produk' => 'PRD' . rand(0, 99999),
             'nama_produk' => $request->nama_produk,
             'deskripsi_produk' => $request->deskripsi,
             'harga' => $request->harga_produk,
             'kategori_id' => $request->kategori,
+            'stok' => $request->stok,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -78,6 +92,7 @@ class Produk extends Controller
     public function detail($id)
     {
         $data_produk = Product::find($id);
+        $data_kategori = Kategori::all();
 
         if (!$data_produk) {
             return redirect('/product')->with('error', 'Produk tidak ditemukan!');
@@ -85,12 +100,14 @@ class Produk extends Controller
 
         return view('pages.produk.detail', [
             'data_produk' => $data_produk,
+            'data_kategori' => $data_kategori,
         ]);
     }
 
     public function edit($id)
     {
         $data_produk = Product::find($id);
+        $data_kategori = Kategori::all();
 
         if (!$data_produk) {
             return redirect('/product')->with('error', 'Produk tidak ditemukan!');
@@ -98,6 +115,7 @@ class Produk extends Controller
 
         return view('pages.produk.edit', [
             'data_produk' => $data_produk,
+            'data_kategori' => $data_kategori,
         ]);
     }
 
@@ -108,8 +126,10 @@ class Produk extends Controller
             'deskripsi' => 'required|string',
             'harga_produk' => 'required|integer',
             'kategori' => 'required|integer',
+            'stok' => 'required|integer',
         ],[
             'nama_produk.required' => 'Nama produk wajib diisi!',
+            'nama_produk.string' => 'Nama produk harus berupa string!',
             'nama_produk.min' => 'Nama produk minimal 4 karakter!',
             'nama_produk.max' => 'Nama produk maksimal 50 karakter!',
             'deskripsi.required' => 'Deskripsi produk wajib diisi!',
@@ -117,6 +137,8 @@ class Produk extends Controller
             'harga_produk.integer' => 'Harga produk harus berupa angka!',
             'kategori.required' => 'Kategori produk wajib diisi!',
             'kategori.integer' => 'Kategori produk harus berupa angka!',
+            'stok.required' => 'Stok produk wajib diisi!',
+            'stok.integer' => 'Stok produk harus berupa angka!',
         ]);
 
         $data_produk = Product::find($id);
@@ -130,6 +152,7 @@ class Produk extends Controller
             'deskripsi_produk' => $request->deskripsi,
             'harga' => $request->harga_produk,
             'kategori_id' => $request->kategori,
+            'stok' => $request->stok,
             'updated_at' => now(),
         ]);
 

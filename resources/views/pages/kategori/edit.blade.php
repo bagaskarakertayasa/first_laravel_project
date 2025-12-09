@@ -3,21 +3,22 @@
 @section('content')
 <div class="card">
     <div class="card-header">
-        Tambah Kategori Produk
+        Edit Kategori Produk
     </div>
     <div class="card-body">
-        <form action="/kategori" method="POST">
+        <form action="/kategori/{{ $data->id_kategori }}" method="POST">
             @csrf
+            @method('PUT')
             <div class="mb-3">
                 <label class="form-label">Nama Kategori</label>
-                <input type="text" name="nama_kategori" class="form-control" value="{{ old('nama_kategori') }}" placeholder="Nama Kategori">
+                <input type="text" name="nama_kategori" class="form-control" value="{{ $data->nama_kategori }}" placeholder="Nama Kategori">
                 @error('nama_kategori')
                 <div class="form-text text-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div class="mb-3">
                 <label class="form-label">Deskripsi</label>
-                <textarea class="form-control" name="deskripsi" placeholder="Deskripsi">{{ old('deskripsi') }}</textarea>
+                <textarea class="form-control" name="deskripsi" placeholder="Deskripsi">{{ $data->deskripsi }}</textarea>
                 @error('deskripsi')
                 <div class="form-text text-danger">{{ $message }}</div>
                 @enderror

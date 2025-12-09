@@ -37,8 +37,11 @@
             <thead>
                 <tr>
                     <th scope="col">No</th>
+                    <th scope="col">Kode Produk</th>
                     <th scope="col">Nama Produk</th>
                     <th scope="col">Deskripsi</th>
+                    <th scope="col">Kategori</th>
+                    <th scope="col">Stok</th>
                     <th scope="col">Harga</th>
                     <th scope="col">Aksi</th>
                 </tr>
@@ -47,8 +50,11 @@
                 @forelse ($data_produk as $index => $product)
                 <tr>
                     <th scope="row">{{ $index + 1 }}</th>
+                    <td>{{ $product->kode_produk }}</td>
                     <td>{{ $product->nama_produk }}</td>
                     <td>{{ $product->deskripsi_produk }}</td>
+                    <td>{{ $product->nama_kategori }}</td>
+                    <td>{{ $product->stok }}</td>
                     <td>Rp{{ number_format($product->harga, 0, ',', '.') }}</td>
                     <td>
                         <button type="button" class="btn btn-danger" data-bs-toggle="modal"

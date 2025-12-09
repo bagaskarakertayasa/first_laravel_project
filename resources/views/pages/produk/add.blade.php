@@ -10,35 +10,48 @@
             @csrf
             <div class="col-md-6">
                 <label for="inputCity" class="form-label">Nama Produk</label>
-                <input type="text" name="nama_produk" class="form-control" placeholder="Nama Produk" value="{{ old('nama_produk') }}">
+                <input type="text" name="nama_produk" class="form-control" placeholder="Nama Produk"
+                    value="{{ old('nama_produk') }}">
                 @error('nama_produk')
-                    <div class="form-text text-danger">{{ $message }}</div>
+                <div class="form-text text-danger">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="col-md-4">
-                <label for="inputZip" class="form-label">Harga</label>
-                <input type="number" name="harga_produk" class="form-control" placeholder="Harga Produk" value="{{ old('harga_produk') }}">
+            <div class="col-md-6">
+                <label class="form-label">Harga Produk</label>
+                <input type="number" name="harga_produk" class="form-control" placeholder="Harga Produk"
+                    value="{{ old('harga_produk') }}">
                 @error('harga_produk')
-                    <div class="form-text text-danger">{{ $message }}</div>
+                <div class="form-text text-danger">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="col-md-2">
-                <label for="inputState" class="form-label">Kategori</label>
+            <div class="col-md-6">
+                <label class="form-label">Stok</label>
+                <input type="number" name="stok" class="form-control" placeholder="Stok Produk"
+                    value="{{ old('stok') }}">
+                @error('stok')
+                <div class="form-text text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Kategori</label>
                 <select name="kategori" class="form-select">
                     <option value="" selected>Pilih...</option>
-                    <option value="1" {{ old('kategori') == '1' ? 'selected' : '' }}>Kelas 1</option>
-                    <option value="2" {{ old('kategori') == '2' ? 'selected' : '' }}>Kelas 2</option>
-                    <option value="3" {{ old('kategori') == '3' ? 'selected' : '' }}>Kelas 3</option>
+                    @foreach($data_kategori as $kategori)
+                    <option value="{{ $kategori->id_kategori }}"
+                        {{ old('kategori') == $kategori->id_kategori ? 'selected' : '' }}>{{ $kategori->nama_kategori }}
+                    </option>
+                    @endforeach
                 </select>
                 @error('kategori')
-                    <div class="form-text text-danger">{{ $message }}</div>
+                <div class="form-text text-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div class="col-12">
                 <label for="inputAddress" class="form-label">Deskripsi</label>
-                <textarea class="form-control" name="deskripsi" placeholder="Deskripsi Produk">{{ old('deskripsi') }}</textarea>
+                <textarea class="form-control" name="deskripsi"
+                    placeholder="Deskripsi Produk">{{ old('deskripsi') }}</textarea>
                 @error('deskripsi')
-                    <div class="form-text text-danger">{{ $message }}</div>
+                <div class="form-text text-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div class="col-12">
