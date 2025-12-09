@@ -38,10 +38,19 @@ class Produk extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_produk' => 'required|string|max:150',
+            'nama_produk' => 'required|string|min:4|max:50',
             'deskripsi' => 'required|string',
             'harga_produk' => 'required|integer',
             'kategori' => 'required|integer',
+        ],[
+            'nama_produk.required' => 'Nama produk wajib diisi!',
+            'nama_produk.min' => 'Nama produk minimal 4 karakter!',
+            'nama_produk.max' => 'Nama produk maksimal 50 karakter!',
+            'deskripsi.required' => 'Deskripsi produk wajib diisi!',
+            'harga_produk.required' => 'Harga produk wajib diisi!',
+            'harga_produk.integer' => 'Harga produk harus berupa angka!',
+            'kategori.required' => 'Kategori produk wajib diisi!',
+            'kategori.integer' => 'Kategori produk harus berupa angka!',
         ]);
 
         Product::create([

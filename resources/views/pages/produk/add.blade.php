@@ -17,7 +17,7 @@
             </div>
             <div class="col-md-4">
                 <label for="inputZip" class="form-label">Harga</label>
-                <input type="text" name="harga_produk" class="form-control" placeholder="Harga Produk" value="{{ old('harga_produk') }}">
+                <input type="number" name="harga_produk" class="form-control" placeholder="Harga Produk" value="{{ old('harga_produk') }}">
                 @error('harga_produk')
                     <div class="form-text text-danger">{{ $message }}</div>
                 @enderror
