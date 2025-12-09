@@ -125,4 +125,17 @@ class Produk extends Controller
 
         return redirect('/product')->with('pesan', 'Produk berhasil diupdate!');
     }
+
+    public function delete($id)
+    {
+        $data_produk = Product::find($id);
+
+        if (!$data_produk) {
+            return redirect('/product')->with('error', 'Produk tidak ditemukan!');
+        }
+
+        $data_produk->delete();
+
+        return redirect('/product')->with('pesan', 'Produk berhasil dihapus!');
+    }
 }

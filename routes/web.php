@@ -27,3 +27,5 @@ Route::get('/product/{id}', [Produk::class, 'detail']);
 
 Route::get('/product/edit/{id}', [Produk::class, 'edit']);
 Route::put('/product/{id}', [Produk::class, 'update']);
+
+Route::delete('/product/{id}', [Produk::class, 'delete']);

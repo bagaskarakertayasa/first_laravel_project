@@ -9,16 +9,16 @@
     <b>Kontak : </b> {{ $data_toko['kontak_toko'] }}
 </div>
 @if (session('pesan'))
-    <div class="alert alert-success">
-        {{ session('pesan') }}
-    </div>
+<div class="alert alert-success">
+    {{ session('pesan') }}
+</div>
 @endif
 @if (session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
+<div class="alert alert-danger">
+    {{ session('error') }}
+</div>
 @endif
-<div class="card">    
+<div class="card">
     <div class="card-header">
         Daftar Produk
     </div>
@@ -38,17 +38,42 @@
                 <tr>
                     <th scope="row">{{ $index + 1 }}</th>
                     <td>{{ $product->nama_produk }}</td>
-                    <td>{{ $product->deskripsi_produk }}</td>                    
-                    <td>Rp{{ number_format($product->harga, 0, ',', '.') }}</td>                    
+                    <td>{{ $product->deskripsi_produk }}</td>
+                    <td>Rp{{ number_format($product->harga, 0, ',', '.') }}</td>
                     <td>
-                        <button type="button" class="btn btn-danger">Hapus</button>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#hapus{{ $product->id_produk }}">
+                            Hapus
+                        </button>
                         <a href="/product/edit/{{ $product->id_produk }}" class="btn btn-success me-1">Edit</button>
-                        <a href="/product/{{ $product->id_produk }}" class="btn btn-info">Detail</a>
+                            <a href="/product/{{ $product->id_produk }}" class="btn btn-info">Detail</a>
                     </td>
                 </tr>
-                @endforeach                
+                @endforeach
             </tbody>
         </table>
     </div>
 </div>
+@foreach ($data_produk as $product)
+<div class="modal fade" id="hapus{{ $product->id_produk }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="/product/{{ $product->id_produk }}" method="POST" class="modal-content">
+            @method('DELETE')
+            @csrf
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Konfirmasi</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{ $product->nama_produk }} akan dihapus, yakin?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-danger">Hapus</button>
+            </div>
+        </form>
+    </div>
+</div>
+@endforeach
 @endsection
