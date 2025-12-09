@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class Produk extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $data_toko = [
             'nama_toko' => 'Toko Elektronik',
@@ -16,16 +16,26 @@ class Produk extends Controller
             'kontak_toko' => '081234567890',
         ];
 
+        $keyword = $request->keyword;
+
+        if ($request->has('keyword') && !$request->filled('keyword')) {
+            return redirect('/product');
+        } else {
+            $produk = Product::where('nama_produk', 'like', "%{$keyword}%")
+            ->orWhere('deskripsi_produk', 'like', "%{$keyword}%")
+            ->get();            
+        }
+
         // disini terdapat 2 cara untuk show data dari database ke view
         // cara pertama dengan Eloquent ORM
-        $data_produk = Product::get(); // query untuk mengambil semua data produk dari tabel produk
+        // $data_produk = Product::get(); // query untuk mengambil semua data produk dari tabel produk
 
         // cara kedua dengan Query Builder
         // $query_builder = DB::table('tb_products')->get(); // query untuk mengambil semua data produk dari tabel produk
 
         return view('pages.produk.show', [
             'data_toko' => $data_toko,
-            'data_produk' => $data_produk,
+            'data_produk' => $produk,
             // 'produk' => $query_builder, // gunakan ini jika memakai query builder
         ]);
     }

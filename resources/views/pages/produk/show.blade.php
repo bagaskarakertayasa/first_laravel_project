@@ -19,8 +19,18 @@
 </div>
 @endif
 <div class="card">
-    <div class="card-header">
+    <div class="card-header d-flex justify-content-between align-items-center">
         Daftar Produk
+        <div class="d-flex gap-2">
+            @if( request('keyword') != '' )
+            <a href="/product" class="btn btn-secondary">Reset</a>
+            @endif
+            <form class="input-group" style="width: 300px;">
+                <input type="text" name="keyword" value="{{ Request()->keyword }}" class="form-control"
+                    placeholder="Cari Data" aria-describedby="button-addon2">
+                <button class="btn btn-success" type="submit" id="button-addon2">Cari</button>
+            </form>
+        </div>
     </div>
     <div class="card-body">
         <table class="table table-striped table-bordered">
@@ -34,7 +44,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($data_produk as $index => $product)
+                @forelse ($data_produk as $index => $product)
                 <tr>
                     <th scope="row">{{ $index + 1 }}</th>
                     <td>{{ $product->nama_produk }}</td>
@@ -49,7 +59,11 @@
                             <a href="/product/{{ $product->id_produk }}" class="btn btn-info">Detail</a>
                     </td>
                 </tr>
-                @endforeach
+                @empty
+                <tr>
+                    <td colspan="5" class="text-center">Data tidak ditemukan</td>
+                </tr>
+                @endforelse
             </tbody>
         </table>
     </div>
