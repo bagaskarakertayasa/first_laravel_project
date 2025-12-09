@@ -77,4 +77,52 @@ class Produk extends Controller
             'data_produk' => $data_produk,
         ]);
     }
+
+    public function edit($id)
+    {
+        $data_produk = Product::find($id);
+
+        if (!$data_produk) {
+            return redirect('/product')->with('error', 'Produk tidak ditemukan!');
+        }
+
+        return view('pages.produk.edit', [
+            'data_produk' => $data_produk,
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'nama_produk' => 'required|string|min:4|max:50',
+            'deskripsi' => 'required|string',
+            'harga_produk' => 'required|integer',
+            'kategori' => 'required|integer',
+        ],[
+            'nama_produk.required' => 'Nama produk wajib diisi!',
+            'nama_produk.min' => 'Nama produk minimal 4 karakter!',
+            'nama_produk.max' => 'Nama produk maksimal 50 karakter!',
+            'deskripsi.required' => 'Deskripsi produk wajib diisi!',
+            'harga_produk.required' => 'Harga produk wajib diisi!',
+            'harga_produk.integer' => 'Harga produk harus berupa angka!',
+            'kategori.required' => 'Kategori produk wajib diisi!',
+            'kategori.integer' => 'Kategori produk harus berupa angka!',
+        ]);
+
+        $data_produk = Product::find($id);
+
+        if (!$data_produk) {
+            return redirect('/product')->with('error', 'Produk tidak ditemukan!');
+        }
+
+        $data_produk->update([
+            'nama_produk' => $request->nama_produk,
+            'deskripsi_produk' => $request->deskripsi,
+            'harga' => $request->harga_produk,
+            'kategori_id' => $request->kategori,
+            'updated_at' => now(),
+        ]);
+
+        return redirect('/product')->with('pesan', 'Produk berhasil diupdate!');
+    }
 }

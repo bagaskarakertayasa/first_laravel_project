@@ -41,8 +41,8 @@
                     <td>{{ $product->deskripsi_produk }}</td>                    
                     <td>Rp{{ number_format($product->harga, 0, ',', '.') }}</td>                    
                     <td>
-                        <button type="button" class="btn btn-success">Edit</button>
                         <button type="button" class="btn btn-danger">Hapus</button>
+                        <a href="/product/edit/{{ $product->id_produk }}" class="btn btn-success me-1">Edit</button>
                         <a href="/product/{{ $product->id_produk }}" class="btn btn-info">Detail</a>
                     </td>
                 </tr>

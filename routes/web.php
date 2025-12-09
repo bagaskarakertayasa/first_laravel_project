@@ -24,3 +24,6 @@ Route::get('/product', [Produk::class, 'index']);
 Route::get('/product/add', [Produk::class, 'add']);
 Route::post('/product', [Produk::class, 'store']);
 Route::get('/product/{id}', [Produk::class, 'detail']);
+
+Route::get('/product/edit/{id}', [Produk::class, 'edit']);
+Route::put('/product/{id}', [Produk::class, 'update']);
