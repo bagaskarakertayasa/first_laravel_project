@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('title', 'About')
+
 @section('content')
     <h1>Anda berada di halaman about</h1>
     <ul>

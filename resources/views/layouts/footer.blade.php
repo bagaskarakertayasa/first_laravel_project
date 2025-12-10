@@ -1,5 +1,9 @@
-<footer class="bg-body-tertiary text-center text-lg-start mt-auto">
-  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
-    © 2025 Copyright: Bagaskara Kertayasa
-  </div>
+<!-- Footer -->
+<footer class="sticky-footer bg-white">
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Toko Bagas 2025</span>
+        </div>
+    </div>
 </footer>
+<!-- End of Footer -->

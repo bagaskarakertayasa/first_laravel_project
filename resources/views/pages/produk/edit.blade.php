@@ -1,10 +1,9 @@
 @extends('layouts.master')
 
+@section('title', 'Edit Produk')
+
 @section('content')
-<div class="card">
-    <div class="card-header">
-        Edit Produk
-    </div>
+<div class="card">    
     <div class="card-body">
         <form class="row g-3" action="/product/{{ $data_produk->id_produk }}" method="POST">
             @method('PUT')

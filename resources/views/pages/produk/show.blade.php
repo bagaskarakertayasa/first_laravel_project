@@ -1,7 +1,8 @@
 @extends('layouts.master')
 
+@section('title', 'Daftar Produk')
+
 @section('content')
-<h1>Daftar produk kami</h1>
 <a href="/product/add" type="button" class="btn btn-primary mt-3 mb-3">Tambah Data</a>
 <div class="alert alert-primary">
     <b>Nama : </b> {{ $data_toko['nama_toko'] }} <br>

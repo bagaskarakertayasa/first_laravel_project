@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('title', 'Kategori Produk')
+
 @section('content')
 @if (session('pesan'))
 <div class="alert alert-success">
@@ -16,14 +18,14 @@
         Daftar Kategori
         <div class="d-flex">
             @if( request('keyword') != '' )
-            <a href="/kategori" class="btn btn-secondary me-1">Reset</a>
+            <a href="/kategori" class="btn btn-secondary" style="margin-right: 0.5em">Reset</a>
             @endif
             <form class="input-group" style="width: 300px;">
                 <input type="text" name="keyword" value="{{ Request()->keyword }}" class="form-control"
                     placeholder="Cari Data" aria-describedby="button-addon2">
                 <button class="btn btn-success" type="submit" id="button-addon2">Cari</button>
             </form>
-            <a href="/kategori/create" class="btn btn-primary ms-1">Tambah Kategori</a>
+            <a href="/kategori/create" class="btn btn-primary" style="margin-left: 0.5em">Tambah Kategori</a>
         </div>
     </div>
     <div class="card-body">        
